@@ -1,0 +1,24 @@
+Config { font = "-misc-tamzen-medium-r-normal--12-87-100-100-c-60-iso8859-1"
+    , additionalFonts = []
+    , borderColor = "#282A36"
+    , border = TopB
+    , bgColor = "#282A36"
+    , fgColor = "#deded6"
+    , alpha = 255
+    , position = Static { xpos = 0, ypos = 0, width = 1366, height = 20 }
+    , textOffset = -1
+    , iconOffset = -1
+    , lowerOnStart = True
+    , pickBroadest = False
+    , persistent = False
+    , hideOnStart = False
+    , iconRoot = "."
+    , allDesktops = True
+    , overrideRedirect = True
+    , commands = [ Run Battery ["-t","bat: <left>"] 10
+      , Run Date "%a %b %_d %Y %I:%M:%S" "date" 1
+      , Run StdinReader
+      ]
+    , sepChar = "%"
+    , alignSep = "}{"
+    , template = " %StdinReader%} {%date% <fc=#607a86>/</fc> %battery% "

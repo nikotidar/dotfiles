@@ -1,0 +1,18 @@
+[core]
+	filemode = true
+	excludesfile = ~/.gitignore
+[user]
+	email = niko.tidar@outlook.com
+	name = Niko Tidar Lantang Perkasa
+	signingkey = B93D90D9A70DFB80
+[push]
+	default = simple
+[color]
+	ui = auto
+[alias]
+	ls = log --oneline --graph --decorate
+	graph = log --graph --pretty=format:\
+"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"
+[credential "https://github.com"]
+	username = nikotidar
+
