@@ -1,8 +1,8 @@
 " vim plug
 call plug#begin('~/.vim/plugged')
 
-Plug 'chriskempson/base16-vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'dylanaraps/wal.vim'
 Plug 'lervag/vimtex'
 Plug 'mattn/emmet-vim', { 'for': ['*html', '*css'] }
 Plug 'godlygeek/tabular'
@@ -11,6 +11,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
+Plug 'nerdypepper/agila.vim'
 
 call plug#end()
 
@@ -21,13 +22,9 @@ set termencoding=utf-8
 
 " turn syntax highlighting on
 set t_Co=256
-syntax on
-
-" colorscheme
-if filereadable(expand("~/.vimrc_background"))
-	let base16colorspace=256
-    source ~/.vimrc_background
-endif
+syntax enable
+set background=dark
+color wal
 
 " statusbar
 set laststatus=2
