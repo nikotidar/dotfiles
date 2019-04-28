@@ -12,6 +12,15 @@ Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
 Plug 'nerdypepper/agila.vim'
+Plug 'sploit/snort-vim'
+Plug 'ervandew/supertab'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'stanangeloff/php.vim'
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
+Plug 'plasticboy/vim-markdown'
+Plug 'scrooloose/nerdtree.git'
 
 call plug#end()
 
@@ -22,15 +31,24 @@ set termencoding=utf-8
 
 " turn syntax highlighting on
 set t_Co=256
-syntax enable
-set background=dark
+syntax on
+set encoding=utf-8
 color wal
 
 " statusbar
 set laststatus=2
 
+" filetype specific indentation
+autocmd FileType c setlocal shiftwidth=2 tabstop=2
+autocmd FileType cpp setlocal shiftwidth=2 tabstop=2
+autocmd FileType java setlocal shiftwidth=2 tabstop=2
+autocmd FileType php setlocal shiftwidth=2 tabstop=2
+autocmd FileType html setlocal shiftwidth=2 tabstop=2
+
 " general
 filetype plugin indent on
+set number
+set lazyredraw
 set nocompatible
 set smartindent
 set tabstop=4
@@ -165,5 +183,49 @@ let g:fzf_colors =
 let g:indentLine_color_term = 0
 let g:indentLine_char       = '¦'
 let g:indentLine_faster     = 1
-
 autocmd FileType * IndentLinesReset
+
+" omnisharp
+let g:OmniSharp_server_use_mono = 1
+augroup omnisharp_commands
+    autocmd!
+    autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
+    autocmd InsertLeave *.cs call OmniSharp#HighlightBuffer()
+    autocmd FileType cs nnoremap <buffer> <Leader>th :OmniSharpHighlightTypes<CR>
+    autocmd FileType cs nnoremap <buffer> gd :OmniSharpGotoDefinition<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
+    autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
+    autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
+    autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
+    autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
+    autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
+augroup END
+
+" rust
+let g:racer_cmd = "/home/betmenwasdie/.cargo/bin/racer"
+let g:racer_experimental_completer = 1
+au FileType rust nmap gd <Plug>(rust-def)
+au FileType rust nmap gs <Plug>(rust-def-split)
+au FileType rust nmap gx <Plug>(rust-def-vertical)
+au FileType rust nmap <leader>gd <Plug>(rust-doc)
+
+" markdown
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_toml_frontmatter = 1
+let g:vim_markdown_json_frontmatter = 1
+let g:vim_markdown_strikethrough = 1
+let g:vim_markdown_new_list_item_indent = 2
+let g:vim_markdown_autowrite = 1
+
+" nerdtree
+autocmd VimEnter * NERDTree
+autocmd BufEnter * NERDTreeMirror
+nmap <silent> <C-t> :NERDTreeToggle<CR>
+nmap <silent> <F2> :NERDTreeFind<CR>
