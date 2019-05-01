@@ -2,13 +2,14 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'sheerun/vim-polyglot'
+
 Plug 'dylanaraps/wal.vim'
+Plug 'aesophor/base16-faded'
 Plug 'lervag/vimtex'
 Plug 'mattn/emmet-vim', { 'for': ['*html', '*css'] }
 Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
 Plug 'nerdypepper/agila.vim'
@@ -20,7 +21,8 @@ Plug 'OmniSharp/omnisharp-vim'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'plasticboy/vim-markdown'
-Plug 'scrooloose/nerdtree.git'
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'drewtempelmeyer/palenight.vim'
 
 call plug#end()
 
@@ -33,7 +35,8 @@ set termencoding=utf-8
 set t_Co=256
 syntax on
 set encoding=utf-8
-color wal
+colorscheme base16-faded
+set background=dark
 
 " statusbar
 set laststatus=2
@@ -147,14 +150,6 @@ function! StatuslineGit()
 	return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
 endfunction
 
-" nerdtree
-let g:NERDTreeMinimalUI           = 1
-let g:NERDTreeWinPos              = 'left'
-let g:NERDTreeWinSize             = 20
-let g:NERDTreeStatusline          = "  "
-let g:NERDTreeDirArrowExpandable  = '+'
-let g:NERDTreeDirArrowCollapsible = '-'
-
 " gitgutter
 let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_sign_added                     = '+'
@@ -223,9 +218,12 @@ let g:vim_markdown_json_frontmatter = 1
 let g:vim_markdown_strikethrough = 1
 let g:vim_markdown_new_list_item_indent = 2
 let g:vim_markdown_autowrite = 1
-
-" nerdtree
-autocmd VimEnter * NERDTree
-autocmd BufEnter * NERDTreeMirror
-nmap <silent> <C-t> :NERDTreeToggle<CR>
-nmap <silent> <F2> :NERDTreeFind<CR>
+augroup General
+    au!
+    autocmd FileType markdown,text setlocal spell
+    autocmd FileType * setlocal formatoptions-=cro
+    autocmd BufWritePre [:;]* throw 'Forbidden file name: ' . expand('<afile>')
+	autocmd BufWritePre * :%s/\s\+$//e
+    autocmd FileType xdefaults setlocal commentstring=!\ %s
+    autocmd FileType scss,css setlocal commentstring=/*%s*/ shiftwidth=2 softtabstop=2
+augroup END
