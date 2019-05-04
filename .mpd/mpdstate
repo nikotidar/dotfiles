@@ -1,0 +1,66 @@
+sw_volume: 100
+audio_device_state:1:fifo
+audio_device_state:1:pulseaudio output
+state: stop
+current: 4
+random: 0
+repeat: 0
+single: 0
+consume: 0
+crossfade: 0
+mixrampdb: 0.000000
+mixrampdelay: -1.000000
+playlist_begin
+0:Joseph Vincent/Joseph Vincent - Can't Take My Eyes Off You.mp3
+1:Our Last Night/Our Last Night - Fate - Acoustic.mp3
+2:Our Last Night/Our Last Night - Reason To Love - Acoustic.mp3
+3:Payung Teduh/Payung Teduh - Berdua Saja.mp3
+4:Payung Teduh/Payung Teduh - Menuju Senja.mp3
+5:Payung Teduh/Payung Teduh - Untuk Perempuan Yang Sedang Di Pelukan.mp3
+6:Payung Teduh/Payung Teduh - Angin Pujaan Hujan.mp3
+7:Payung Teduh/Payung Teduh - Akad.mp3
+8:Sisitipsi/Sisitipsi - Aroma Dia.mp3
+9:Sisitipsi/Sisitipsi - Alkohol.mp3
+10:Cradle OF Filth/Cradle Of Filth - Lilith Immaculate.mp3
+11:Cradle OF Filth/Cradle Of Filth - Nymphetamine Fix.mp3
+12:Fleshgod Apocalypse/Fleshgod Apocalypse - The Violation.mp3
+13:Fleshgod Apocalypse/Fleshgod Apocalypse - The Forsaking.mp3
+14:Lamb Of God/Lamb of God - Laid to Rest.mp3
+15:Lamb Of God/Lamb of God - Walk with Me In Hell.mp3
+16:Lamb Of God/Lamb of God - Redneck.mp3
+17:Dream Theater/Dream Theater - A Nightmare To Remember.mp3
+18:Dream Theater/Dream Theater - A Rite Of Passage.mp3
+19:Dream Theater/Dream Theater - Wither.mp3
+20:Dream Theater/Dream Theater - The Shattered Fortress.mp3
+21:Dream Theater/Dream Theater - The Best Of Times.mp3
+22:Dream Theater/Dream Theater - The Count Of Tuscany.mp3
+23:Dream Theater/Dream Theater - Pull Me Under - 2007 Remix.mp3
+24:Dream Theater/Dream Theater - Take the Time - 2007 Remix.mp3
+25:Dream Theater/Dream Theater - Lie.mp3
+26:Dream Theater/Dream Theater - Peruvian Skies.mp3
+27:Dream Theater/Dream Theater - Home (Scene Six).mp3
+28:Dream Theater/Dream Theater - The Test That Stumped Them All.mp3
+29:Dream Theater/Dream Theater - As I Am.mp3
+30:Dream Theater/Dream Theater - Endless Sacrifice.mp3
+31:Dream Theater/Dream Theater - The Root of All Evil.mp3
+32:Dream Theater/Dream Theater - Sacrificed Sons.mp3
+33:Dream Theater/Dream Theater - Another Day - 2007 Remix.mp3
+34:Dream Theater/Dream Theater - To Live Forever.mp3
+35:Dream Theater/Dream Theater - Lifting Shadows off a Dream.mp3
+36:Dream Theater/Dream Theater - The Silent Man - Remastered Version.mp3
+37:Dream Theater/Dream Theater - Hollow Years.mp3
+38:Dream Theater/Dream Theater - Through Her Eyes (Scene Five).mp3
+39:Dream Theater/Dream Theater - The Spirit Carries On (Scene Eight).mp3
+40:Dream Theater/Dream Theater - Solitary Shell.mp3
+41:Dream Theater/Dream Theater - I Walk Beside You.mp3
+42:Dream Theater/Dream Theater - The Answer Lies Within.mp3
+43:Dream Theater/Dream Theater - Disappear.mp3
+44:Dream Theater/Dream Theater - Pull Me Under.mp3
+45:Dream Theater/Dream Theater - Another Day.mp3
+46:Dream Theater/Dream Theater - Take the Time.mp3
+47:Dream Theater/Dream Theater - Surrounded.mp3
+48:Dream Theater/Dream Theater - Metropolis -  Pt I (The Miracle and the Sleeper).mp3
+49:Dream Theater/Dream Theater - Under a Glass Moon.mp3
+50:Dream Theater/Dream Theater - Wait for Sleep.mp3
+51:Dream Theater/Dream Theater - Learning to Live.mp3
+playlist_end
