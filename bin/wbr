@@ -1,0 +1,137 @@
+#!/usr/bin/env bash
+# vars
+colors="/home/rndtx/bin/colors"
+refresh=".2"
+padding="   "
+height="30"
+font="-x-vanilla-medium-r-normal-*-10-110-75-75-m-50-iso10646-1"
+ifont="-wuncon-siji-medium-r-normal-*-10-100-75-75-c-80-iso10646-1"
+battery="BAT1"
+
+# colors
+source "$colors"
+
+
+# functions
+desktop() {
+	current="$(xdotool "get_desktop")"
+	case "$current" in
+		"0")
+			desktop="un"
+			;;
+		"1")
+			desktop="deux"
+			;;
+		"2")
+			desktop="trois"
+			;;
+		"3")
+			desktop="quatre"
+			;;
+		"4")
+			desktop="cinq"
+			;;
+		*)
+			desktop="???"
+			;;
+	esac
+	printf "$desktop"
+}
+
+mpd() {
+	current="$(mpc "current")"
+	printf "$current"
+}
+
+spotify() {
+	current="$(sps "current")"
+	pid="$(pidof "spotify")"
+	if [ "$pid" ] ; then
+		printf "$padding$current$padding"
+	else
+		:
+	fi
+}
+
+window() {
+	current="$(xdotool "getwindowfocus" "getwindowname")"
+	if [ "$current" = "Openbox" ] ; then
+		:
+	else
+		printf "$padding$current$padding"
+	fi
+}
+
+weather() {
+	cat "/tmp/weather"
+}
+
+battery() {
+	percent="$(cat "/sys/class/power_supply/"$battery"/capacity")"
+	echo "$percent%"
+}
+
+clock() {
+	clock="$(date "+%a %R")"
+	printf "$clock"
+}
+
+network() {
+	cnetwork=$(iwgetid -r)
+
+	if [ "$cnetwork" == "" ]; then
+		echo "not connected"
+	else
+		echo "$cnetwork"
+	fi
+}
+
+# loops
+dloop() {
+	while :; do
+		echo "%{l}\
+		$a1$af2%{A3:sps 'play' &:}$padding$(desktop)$padding%{A}$txt$bg\
+		$a3$(spotify)$bg\
+		$a2$(window)$bg\
+		%{r}\
+		$a2%{A:network &:}$padding$(network)$p%{A}$bg\
+		$a2%{A:notify-send 'updating the weather' && weather &:}$padding$(weather)$padding%{A}$bg\
+		$a2%{A:calendar &:}$padding$(clock)$padding%{A}$bg"
+		sleep "$refresh"
+	done |\
+
+	lemonbar \
+		-f "$font" \
+		-f "$ifont" \
+		-g "x"$height"" \
+	| bash
+}
+
+lloop() {
+	while :; do
+		echo "%{l}\
+		$a1$af2%{A3:sps 'play' &:}$padding$(desktop)$padding%{A}$txt$bg\
+		$a3$(spotify)$bg\
+		$a2$(window)$bg\
+		%{r}\
+		$a2%{A:network &:}$padding$(network)$bg\
+		$a2%{A:notify-send 'updating the weather' && weather &:}$padding$(weather)$bg\
+		$a2%{A:batstat &:}$padding$(battery)$bg\
+		$a2%{A:calendar &:}$padding$(clock)$padding%{A}$bg"
+		sleep "$refresh"
+	done |\
+
+	lemonbar \
+		-f "$font" \
+		-f "$ifont" \
+		-g "x"$height"" \
+	| bash
+}
+
+
+# exec
+if [ -f "/sys/class/power_supply/"$battery"/status" ] ; then
+	lloop
+else
+	dloop
+fi

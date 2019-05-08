@@ -1,0 +1,109 @@
+! colorschemes
+#include "/home/rndtx/.cache/painter/active_colorscheme"
+
+! special
+*.background: BACKGROUND
+*.foreground: FOREGROUND
+*.cursorColor: FOREGROUND
+*.bar_background: BACKGROUND
+*.border: BACKGROUND
+
+! black
+*.color0: BLACK
+*.color8: DARK_GREY
+
+! red
+*.color1: DARK_RED
+*.color9: LITE_RED
+
+! green
+*.color2: DARK_GREEN
+*.color10: LITE_GREEN
+
+! yellow
+*.color3: DARK_YELLOW
+*.color11: LITE_YELLOW
+
+! blue
+*.color4: DARK_BLUE
+*.color12: LITE_BLUE
+
+! magenta
+*.color5: DARK_MAGENTA
+*.color13: LITE_MAGENTA
+
+! cyan
+*.color6: DARK_CYAN
+*.color14: LITE_CYAN
+
+! white
+*.color7: LITE_GREY
+*.color15: WHITE
+
+! Font
+URxvt*font: xft:Roboto Mono:pixelsize=12
+URxvt*boldFont: xft:Roboto Mono:bold:pixelsize=12
+
+! URxvt
+URxvt.depth:                32
+URxvt.geometry:             90x30
+URxvt.background:           BACKGROUND
+URxvt.borderColor:          BACKGROUND
+URxvt.transparent:          false
+URxvt.shading:		    0
+URxvt.fading:               0
+URxvt.loginShell:           true
+URxvt.internalBorder:       35
+URxvt.saveLines:            2048
+URxvt.lineSpace:            -2
+URxvt.letterSpace:          0
+URxvt.allow_bold:           true
+Xft.dpi:                    96
+Xft.antialias:              true
+Xft.rgba:                   rgb
+Xft.hinting:                true
+Xft.hintstyle:              hintslight
+
+URxvt.urlLauncher:          /usr/bin/xdg-open
+URxvt.scrollStyle:          rxvt
+URxvt.scrollBar:            false
+
+! Cursor configuration.
+URxvt.cursorBlink:          true
+URxvt.cursorUnderline:      true
+URxvt.pointerBlank:         true
+
+! URxvt extensions.
+!URxvt.perl-ext-common:      default,matcher,resize-font,config-reload
+URxvt.perl-ext-common:      default,matcher
+
+! Matcher configuration.
+URxvt.matcher.button:       1
+
+! Resize-font extension configuration.
+URxvt.iso14755:             false
+URxvt.iso14755_52:          false
+!URxvt.keysym.C-Down:        resize-font:smaller
+!URxvt.keysym.C-Up:          resize-font:bigger
+
+! Rofi
+rofi.show-icons:      true
+rofi.width:           35
+rofi.padding:         10
+rofi.lines:           12
+rofi.bw:              3
+
+! Enable the extended coloring options
+rofi.color-enabled:   true
+
+! Property Name       BG          Border     Separator
+rofi.color-window:    BACKGROUND, DARK_GREY, BACKGROUND
+
+! Property Name       BG          FG         BG-alt      Head-BG     Head-FG
+rofi.color-normal:    BACKGROUND, DARK_GREY, BACKGROUND, BACKGROUND, LITE_GREY
+rofi.color-active:    BACKGROUND, DARK_BLUE, BACKGROUND, BACKGROUND, DARK_GREEN
+rofi.color-urgent:    BACKGROUND, DARK_RED,  BACKGROUND, BACKGROUND, DARK_RED
+
+! Set the desired separator style
+rofi.separator-style: solid
+rofi.font:            Roboto Mono 11

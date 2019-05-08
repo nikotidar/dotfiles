@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+#
+# bud - a minimal wal replacement
+
+mod() {
+    ((r=16#${2:0:2}${3}${4},g=16#${2:2:2}${3}${4},b=16#${2:4:2}${3}${4}))
+    ((r=r<0?0:r,g=g<0?0:g,b=b<0?0:b))
+    ((r=r>255?255:r,g=g>255?255:g,b=b>255?255:b))
+    printf -v "$1" '%02x%02x%02x' "$r" "$g" "$b"
+}
+
+img() {
+    [[ -d $1 ]] && {
+        imgs=("${1%/}"/*.{png,jp*,JPG*})
+        img=${imgs[RANDOM%${#imgs[@]}]}
+    }
+
+    [[ -f ${img:-$1} ]] && {
+        img=${img:-$1}
+        return
+    }
+
+    exit 1
+}
+
+col() {
+    magic_flags=(
+       -alpha off
+       -resize 25%
+       -modulate 150,150,100
+       -colors 16
+       -unique-colors
+       txt:-
+    )
+
+    if [[ -f ${cache_dir}/${img//\//_} ]]; then
+        mapfile -t final_pal < "${cache_dir}/${img//\//_}"
+
+    else
+        mapfile -ts 1 clrs < <(convert "$img" "${magic_flags[@]}")
+
+        clrs=("${clrs[@]//*\#}")
+        clrs=("${clrs[@]// *}")
+
+        mod bg "${clrs[0]}" - 50
+        mod fg "${clrs[0]}" + 220
+        mod co "$bg" + 125
+
+        [[ ${#clrs[@]} -lt 16 ]] &&
+            exit 1
+
+        final_pal=(
+            "$bg"
+            "${clrs[@]:9:6}"
+            "$fg"
+            "$co"
+            "${clrs[@]:9:6}"
+            "$fg"
+        )
+
+        printf '%s\n' "${final_pal[@]}" > "${cache_dir}/${img//\//_}"
+    fi
+
+    printf 'c=(%s)\n' "${final_pal[*]}" > "${cache_dir}/colors.sh"
+    pal "${final_pal[@]}" &
+}
+
+sys() {
+    setroot -z "$img"
+
+    sed -i"" \
+        -e "s/bg.color: #.*/bg.color: #FFFFFF/" \
+        -e "s/text.color: #.*/text.color: #FFFFFF/" \
+        -e "s/image.color: #.*/image.color: #FFFFFF/" \
+        ~/.themes/thicc/openbox-3/themerc
+
+    openbox --reconfigure
+}
+
+main() {
+    [[ -d ${cache_dir:=${XDG_CACHE_HOME:=${HOME}/.cache}/buddy} ]] ||
+        mkdir -p "$cache_dir"
+
+    img "$1"
+    col
+    sys
+}
+
+main "$1"
