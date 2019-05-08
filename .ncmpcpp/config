@@ -1,67 +1,67 @@
-#	  ___     ___    ___ ___   _____    ___  _____   _____   
-#	/' _ `\  /'___\/' __` __`\/\ '__`\ /'___/\ '__`\/\ '__`\ 
-#	/\ \/\ \/\ \__//\ \/\ \/\ \ \ \L\ /\ \__\ \ \L\ \ \ \L\ \
-#	\ \_\ \_\ \____\ \_\ \_\ \_\ \ ,__\ \____\ \ ,__/\ \ ,__/
-#	 \/_/\/_/\/____/\/_/\/_/\/_/\ \ \/ \/____/\ \ \/  \ \ \/ 
-#	                             \ \_\         \ \_\   \ \_\ 
-#	                              \/_/          \/_/    \/_/ 
-
-
-# mpd
-mpd_port = "6666"
-
-# lyrics
+ncmpcpp_directory = ~/.ncmpcpp
 lyrics_directory = ~/.ncmpcpp/lyrics
+mpd_host = localhost
+mpd_port = 6600
 
-# Display ..
-song_list_format = " $0%n $1• $8%t $R$0%A "
-song_columns_list_format = "(3)[]{}(92)[white]{t} (4)[red]{l}"
-song_status_format = " $3%t $0 "
-playlist_display_mode = "classic" (classic/columns)
 
-# Now Playing ..
-now_playing_prefix = "$3»"
-now_playing_suffix = "$8$/b"
+## Selected tracks ##
+selected_item_prefix = "* "
+discard_colors_if_item_is_selected = "no"
 
-# Playlist ..
-browser_playlist_prefix = "$2 ♥ $0 "
-
-# Delays .. 
-playlist_disable_highlight_delay = "1"
-message_delay_time= "1"
-
-# Progress Bar ..
-progressbar_look = "---"
-progressbar_color = "black"
-progressbar_elapsed_color = "black"
-
-# Colors ..
-colors_enabled = "yes"
-empty_tag_color = "red"
-statusbar_color = "black"
+# Colors
+color1 = "magenta"
+color2 = "cyan" 
+main_window_color = "cyan" 
 state_line_color = "black"
-state_flags_color = "green"
-main_window_color = "green" 
-header_window_color = "black"
+statusbar_color = "black"
+progressbar_color = "magenta"
+progressbar_elapsed_color = "cyan"
+current_item_prefix = "$(red)$r"
+current_item_suffix = "$/r$(end)"
+alternative_ui_separator_color = "black"
 
-# Misc ..   
-display_bitrate = "yes"
+# Settings
 autocenter_mode = "yes"
-centered_cursor = "yes"
+header_visibility = "no" 
+statusbar_visibility = "no"
+cyclic_scrolling = "yes"
 titles_visibility = "no"
-statusbar_visibility = "yes"
-empty_tag_marker=" -- ‼ -- " 
-mouse_support = "no"
-header_visibility = "no"
-display_remaining_time = "no"
+display_bitrate = "yes"
+playlist_separate_albums = "no"
 ask_before_clearing_playlists = "no"
-discard_colors_if_item_is_selected = "yes"
-
-# Visualizer ..
-visualizer_in_stereo = "yes"
-visualizer_sync_interval = "30"
-visualizer_output_name = "Pipe"
+visualizer_type = "ellipse"
 visualizer_fifo_path = "/tmp/mpd.fifo"
-visualizer_type = "wave" (spectrum/wave)
-visualizer_color = "green,blue,red,magenta"
-visualizer_look = "∙▋"
+
+# Playlist
+#user_interface = "alternative"
+playlist_display_mode = "classic"
+browser_display_mode = "classic"
+song_list_format = "$7 {%a}|{%D}$8 * $5%t $R $6%l"
+song_status_format = "$6%t $1>> $8%a $1>> $2%b$1"
+song_columns_list_format = "(5)[]{} (20)[red]{a} (26)[white]{t|f} (44)[blue]{b} (20)[red]{l}"
+alternative_header_second_line_format = "$6{%a} $b$8-$9 $4{%b}$9"
+now_playing_prefix = "$b$4» "
+now_playing_suffix = "$2$/b$2"
+
+# Progressbars to use.
+# This section works as
+# a clipboard so no need
+# to hunt these down from
+# the web.
+
+#progressbar_look = "░█ "
+#progressbar_look = "=>"
+#progressbar_look = "─- "
+#progressbar_look = "▒▒░"
+#progressbar_look = "┅┅┄"
+#progressbar_look = "─⊙┄"
+#progressbar_look = "─➞─"
+progressbar_look = "─┅─"
+#progressbar_look = "▪▪▪"
+#progressbar_look = "▪▪▫"
+#progressbar_look = "───"
+#progressbar_look = "▁▁▁"
+#progressbar_look = "‒‒‒"
+#progressbar_look = "■◣ "
+#progressbar_look = "◈◆◇"
+#progressbar_look = "→→"
