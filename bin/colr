@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# inspired by bud/pywal
+# rndtx - <me@rndtx.id>
+
+function set_theme {
+    echo "setting theme..." $1
+    source $HOME/.config/colr/themes/$1
+    set_x_colorscheme
+
+    xrdb -merge ~/.Xresources
+
+    killall polybar
+    ~/.config/polybar/launch.sh
+}
+
+function set_x_colorscheme {
+    mkdir -p $HOME/.cache/colr
+    colorscheme="$HOME/.cache/colr/active_colorscheme"
+    echo > $colorscheme
+    echo \#define BACKGROUND $BG >> $colorscheme
+    echo \#define FOREGROUND $FG >> $colorscheme
+    echo \#define BLACK $BLK >> $colorscheme
+    echo \#define DARK_GREY $BBLK >> $colorscheme
+    echo \#define LITE_GREY $WHT >> $colorscheme
+    echo \#define WHITE $BWHT >> $colorscheme
+    echo \#define LITE_RED $BRED >> $colorscheme
+    echo \#define DARK_RED $RED >> $colorscheme
+    echo \#define LITE_GREEN $BGRN >> $colorscheme
+    echo \#define DARK_GREEN $GRN >> $colorscheme
+    echo \#define LITE_YELLOW $BYLW >> $colorscheme
+    echo \#define DARK_YELLOW $YLW >> $colorscheme
+    echo \#define LITE_BLUE $BBLU >> $colorscheme
+    echo \#define DARK_BLUE $BLU >> $colorscheme
+    echo \#define LITE_MAGENTA $BMAG >> $colorscheme
+    echo \#define DARK_MAGENTA $MAG >> $colorscheme
+    echo \#define LITE_CYAN $BCYN >> $colorscheme
+    echo \#define DARK_CYAN $CYN >> $colorscheme
+}
+
+case "$1" in
+    "")
+        echo no param
+        ;;
+
+    -h | --help)
+        echo usage
+        ;;
+
+    -v | --version)
+        echo version
+        ;;
+
+    *)
+        set_theme $1
+        ;;
+esac
