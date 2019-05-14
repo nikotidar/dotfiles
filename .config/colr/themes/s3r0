@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# DEFINE COLORS
+BG="#1f1f1f"
+FG="#c0b18b"
+
+BLK="#4A3637"
+RED="#d17b49"
+GRN="#7b8748"
+YLW="#af865a"
+BLU="#535C5C"
+MAG="#775759"
+CYN="#6d715e"
+WHT="#c0b18b"
+
+BBLK="#4A3637"
+BRED="#d17b49"
+BGRN="#7b8748"
+BYLW="#af865a"
+BBLU="#535C5C"
+BMAG="#775759"
+BCYN="#6d715e"
+BWHT="#c0b18b"

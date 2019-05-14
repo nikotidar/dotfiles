@@ -42,10 +42,24 @@ URxvt.borderColor:          BACKGROUND
 *.color15: WHITE
 
 ! fonts
-URxvt.font:             -windows-dina-medium-r-normal-*-12-90-96-96-c-70-microsoft-cp1252
-URxvt.boldFont:         -windows-dina-bold-r-normal-*-12-90-96-96-c-70-microsoft-cp1252
-URxvt.italicFont:       -windows-dina-medium-r-normal-*-12-90-96-96-c-70-microsoft-cp1252
-URxvt.bolditalicFont:  -windows-dina-bold-r-normal-*-12-90-96-96-c-70-microsoft-cp1252
+
+! Dina
+!URxvt.font:             -windows-dina-medium-r-normal-*-12-90-96-96-c-70-iso8859-1
+!URxvt.boldFont:         -windows-dina-medium-r-normal-*-12-90-96-96-c-70-iso8859-1
+!URxvt.italicFont:       -windows-dina-medium-r-normal-*-12-90-96-96-c-70-iso8859-1
+!URxvt.bolditalicFont:  -windows-dina-medium-r-normal-*-12-90-96-96-c-70-iso8859-1
+
+! Source code pro
+!URxvt.font:			xft:Source Code Pro:Regular:pixelsize=13
+!URxvt.boldFont:			xft:Source Code Pro:Bold:pixelsize=13
+
+! Iosevka
+!URxvt.font:		xft:Iosevka:Regular:pixelsize=13
+!URxvt.boldFont:		xft:Iosevka:Bold:pixelsize=13
+
+! M+ 1m
+URxvt.font:		xft:M+ 1m:regular:pixelsize=13
+URxvt.boldFont:		xft:M+ 1m:bold:pixelsize=13
 
 ! URxvt
 URxvt.depth:                32
@@ -107,4 +121,4 @@ rofi.color-urgent:    BACKGROUND, DARK_RED,  BACKGROUND, BACKGROUND, DARK_RED
 
 ! Set the desired separator style
 !rofi.separator-style: solid
-rofi.font:            Dina 12
+rofi.font:            M+ 1m 10
