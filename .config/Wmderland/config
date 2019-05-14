@@ -15,7 +15,7 @@
 ; `set <Key> = <Value>` to set a builtin varaible
 ; `set $<Variable> = <Value>` to define your own variable
 ; -----------------------------------------------------------------------
-set gap_width = 12
+set gap_width = 7
 set border_width = 3
 set min_window_width = 100
 set min_window_height = 100
@@ -119,15 +119,17 @@ bindsym $Mod+Shift+c kill
 bindsym $Mod+Shift+q exit
 bindsym $Mod+Shift+r reload
 bindsym $Mod+d exec rofi -show drun
-bindsym $Mod+Shift+Return goto_workspace 1; exec urxvt
+bindsym $Mod+Shift+Return goto_workspace 1; exec urxvtc
 
 
 ; [Autostart]
 ; Applications to execute when WM starts up (DON'T append '&' at the end)
 ; -----------------------------------------------------------------------
+exec colr base16-faded
+exec urxvtd -q -o -f
 exec mpd
 exec dunst
 exec xcalib ~/.x230.icm
-exec feh --bg-fill /home/betmenwasdie/images/wallpaper/faded.jpg
-exec compton --config /home/betmenwasdie/git/aesophor/dotfiles/compton/.config/compton/compton.conf
+exec feh --bg-fill /home/rndtx/images/wallpaper/arch-nord.png
+exec compton --config /home/rndtx/.config/compton/compton.conf
 exec ~/.config/polybar/launch.sh
