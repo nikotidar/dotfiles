@@ -42,11 +42,11 @@ set background=dark
 set laststatus=2
 
 " filetype specific indentation
-autocmd FileType c setlocal shiftwidth=2 tabstop=2
-autocmd FileType cpp setlocal shiftwidth=2 tabstop=2
-autocmd FileType java setlocal shiftwidth=2 tabstop=2
-autocmd FileType php setlocal shiftwidth=2 tabstop=2
-autocmd FileType html setlocal shiftwidth=2 tabstop=2
+autocmd FileType c setlocal shiftwidth=4 tabstop=4
+autocmd FileType cpp setlocal shiftwidth=4 tabstop=4
+autocmd FileType java setlocal shiftwidth=4 tabstop=4
+autocmd FileType php setlocal shiftwidth=4 tabstop=4
+autocmd FileType html setlocal shiftwidth=4 tabstop=4
 
 " general
 filetype plugin indent on
@@ -130,16 +130,16 @@ set statusline+=\ %{ModeCurrent()}
 set statusline+=%#SecondaryBlock#
 set statusline+=%{StatuslineGit()}
 set statusline+=%#Blanks#
-set statusline+=\ %t\ 
+set statusline+=\ %t\
 set statusline+=%(%m%)
 set statusline+=%=
 set statusline+=%#SecondaryBlock#
 set statusline+=\ Ln
 set statusline+=\ %l
 set statusline+=,Col
-set statusline+=\ %c\ 
+set statusline+=\ %c\
 set statusline+=%#PrimaryBlock#
-set statusline+=\ %Y\ 
+set statusline+=\ %Y\
 
 function! GitBranch()
 	return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
@@ -175,7 +175,7 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 " indentLine
-let g:indentLine_color_term = 0
+let g:indentLine_color_term = 8
 let g:indentLine_char       = '¦'
 let g:indentLine_faster     = 1
 autocmd FileType * IndentLinesReset
