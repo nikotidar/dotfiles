@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # vars
-colors="/usr/home/rndtx/bin/colors"
+colors="/home/rndtx/bin/colors"
 refresh=".1"
 padding="    "
 height="30"
@@ -96,8 +96,8 @@ clock() {
 }
 
 battery() {
-	percent="$(apm -l)"
-	echo "$percent"
+	percent="$(cat "/sys/class/power_supply/"$battery"/capacity")"
+	echo "$percent%"
 }
 
 irc() {
@@ -118,7 +118,7 @@ loop() {
 		%{r}\
 		%{A2:cover &:}%{A:mpc 'toggle' &:}%{A3:urxvt -e 'ncmpcpp' &:}$(music)$bg\
 		$a2%{A:notify-send 'updating the weather' && weather &:}$padding$(weather)$bg\
-		$a2%{A:batstat &:}$padding$(battery)$bg\
+		$a2%{A:batstat &:}$padding$(battery) $bg\
 		$a2%{A:calendar &:}$(clock)$bg\
 		%{A:toggle-tch &:}$(irc)%{A}$bg"
 		sleep "$refresh"
