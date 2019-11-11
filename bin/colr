@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
-# inspired by bud/pywal
-# rndtx - <me@rndtx.id>
+# Simple xorg colorscheme manager
 
 function set_theme {
     echo "setting theme..." $1
     source $HOME/.config/colr/themes/$1
     set_x_colorscheme
+    set_displayctlrc
 
     xrdb -merge ~/.Xresources
 
+    displayctl
+
+    # Restart polybar
     killall polybar
     ~/.config/polybar/launch.sh
+
+    # Reload urxvt via regnarg/urxvt-config-reload
+    kill -1 `pidof urxvt`
 }
 
 function set_x_colorscheme {
@@ -36,6 +42,15 @@ function set_x_colorscheme {
     echo \#define LITE_CYAN $BCYN >> $colorscheme
     echo \#define DARK_CYAN $CYN >> $colorscheme
 }
+
+function set_displayctlrc {
+    dispayctlrc="$HOME/.xorg/displayctlrc"
+    grep -vE "Display.(wallpaper|lockscreen)" $dispayctlrc > /tmp/colr.tmp
+    cat /tmp/colr.tmp > $dispayctlrc
+    echo Display.wallpaper: $WALLPAPER_PATH >> $dispayctlrc
+    #echo Display.lockscreen: $LOCKSCREEN_PATH >> $dispayctlrc
+}
+
 
 case "$1" in
     "")
