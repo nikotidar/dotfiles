@@ -1,124 +1,14 @@
-! colorschemes
-#include "/home/rndtx/.cache/colr/active_colorscheme"
-*.background: BACKGROUND
-*.foreground: FOREGROUND
-*.cursorColor: FOREGROUND
-*.bar_background: BACKGROUND
-*.border: BACKGROUND
+! displayctl
+#include "/home/rndtx/.xorg/displayctlrc" 
 
-URxvt.background:           BACKGROUND
-URxvt.borderColor:          BACKGROUND
+! Colorscheme
+#include "/home/rndtx/.xorg/colorscheme"
 
-! black
-*.color0: BLACK
-*.color8: DARK_GREY
-
-! red
-*.color1: DARK_RED
-*.color9: LITE_RED
-
-! green
-*.color2: DARK_GREEN
-*.color10: LITE_GREEN
-
-! yellow
-*.color3: DARK_YELLOW
-*.color11: LITE_YELLOW
-
-! blue
-*.color4: DARK_BLUE
-*.color12: LITE_BLUE
-
-! magenta
-*.color5: DARK_MAGENTA
-*.color13: LITE_MAGENTA
-
-! cyan
-*.color6: DARK_CYAN
-*.color14: LITE_CYAN
-
-! white
-*.color7: LITE_GREY
-*.color15: WHITE
-
-! fonts
-
-! Dina
-!URxvt.font:             -windows-dina-medium-r-normal-*-12-90-96-96-c-70-iso8859-1
-!URxvt.boldFont:         -windows-dina-medium-r-normal-*-12-90-96-96-c-70-iso8859-1
-!URxvt.italicFont:       -windows-dina-medium-r-normal-*-12-90-96-96-c-70-iso8859-1
-!URxvt.bolditalicFont:  -windows-dina-medium-r-normal-*-12-90-96-96-c-70-iso8859-1
-
-! Source code pro
-!URxvt.font:			xft:Source Code Pro:Regular:pixelsize=13
-!URxvt.boldFont:			xft:Source Code Pro:Bold:pixelsize=13
-
-! Iosevka
-!URxvt.font:		xft:Iosevka:Regular:pixelsize=13
-!URxvt.boldFont:		xft:Iosevka:Bold:pixelsize=13
-
-! M+ 1m
-URxvt.font:		xft:M+ 1m:regular:pixelsize=13
-URxvt.boldFont:		xft:M+ 1m:bold:pixelsize=13
+! Font Settings
+#include "/home/rndtx/.xorg/fonts"
 
 ! URxvt
-URxvt.depth:                32
-URxvt.geometry:             90x30
-URxvt.transparent:          false
-URxvt.shading:		    0
-URxvt.fading:               0
-URxvt.loginShell:           true
-URxvt.internalBorder:       35
-URxvt.saveLines:            2048
-URxvt.lineSpace:            0
-URxvt.letterSpace:          -1
-URxvt.allow_bold:           true
-Xft.dpi:                    96
-Xft.antialias:              true
-Xft.rgba:                   rgb
-Xft.hinting:                true
-Xft.hintstyle:              hintslight
+#include "/home/rndtx/.xorg/urxvt"
 
-URxvt.urlLauncher:          /usr/bin/xdg-open
-URxvt.scrollStyle:          rxvt
-URxvt.scrollBar:            false
-
-! Cursor configuration.
-URxvt.cursorBlink:          true
-URxvt.cursorUnderline:      true
-URxvt.pointerBlank:         true
-
-! URxvt extensions.
-!URxvt.perl-ext-common:      default,matcher,resize-font,config-reload
-URxvt.perl-ext-common:      default,matcher
-
-! Matcher configuration.
-URxvt.matcher.button:       1
-
-! Resize-font extension configuration.
-URxvt.iso14755:             false
-URxvt.iso14755_52:          false
-!URxvt.keysym.C-Down:        resize-font:smaller
-!URxvt.keysym.C-Up:          resize-font:bigger
-
-! Rofi
-rofi.show-icons:      true
-rofi.width:           35
-rofi.padding:         10
-rofi.lines:           12
-rofi.bw:              3
-
-! Enable the extended coloring options
-rofi.color-enabled:   true
-
-! Property Name       BG          Border     Separator
-rofi.color-window:    BACKGROUND, DARK_GREY, BACKGROUND
-
-! Property Name       BG          FG         BG-alt      Head-BG     Head-FG
-rofi.color-normal:    BACKGROUND, DARK_GREY, BACKGROUND, BACKGROUND, LITE_GREY
-rofi.color-active:    BACKGROUND, DARK_BLUE, BACKGROUND, BACKGROUND, DARK_GREEN
-rofi.color-urgent:    BACKGROUND, DARK_RED,  BACKGROUND, BACKGROUND, DARK_RED
-
-! Set the desired separator style
-!rofi.separator-style: solid
-rofi.font:            M+ 1m 10
+! Rofi Colors
+#include "/home/rndtx/.xorg/rofi"

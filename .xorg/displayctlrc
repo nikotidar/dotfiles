@@ -1,0 +1,7 @@
+! displayctlrc
+! =======================================================
+Display.monitor:    eDP1
+Display.dpi:        96
+Display.resolution: 1366x768
+Display.brightness: 30
+Display.wallpaper: /home/rndtx/images/wallpaper/green-leaf.jpg
