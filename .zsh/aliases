@@ -1,0 +1,57 @@
+# make ls list directories first.
+alias l='ls'
+alias ls='ls --color -hX --group-directories-first'
+alias la='ls -lAh'
+alias ll='la'
+
+# corrections
+alias bitch='sudo'
+alias bitchedit='sudoedit'
+alias reboot='sync && sync && sudo reboot'
+alias shutdown='sync && sync && sudo shutdown now'
+
+# bookmarks
+alias home='cd ~/; ll'
+alias code='cd ~/Code; ll'
+alias dl='cd ~/Downloads; ll'
+alias docs='cd ~/Documents; ll'
+alias notes='cd ~/Documents/Notes; ll'
+alias works='cd ~/Workspaces; ll'
+alias pics='cd ~/Pictures; ll'
+alias vids='cd ~/Videos; ll'
+alias musics='cd ~/Music; ll'
+alias games='cd ~/Games; ll'
+alias dots="cd ~/Dots; ll"
+alias vpn='cd ~/.config/143vpn/TCP; ll'
+
+# shortcuts
+alias c='clear'
+alias open='xdg-open'
+alias vim='nvim'
+alias config-dp='vim ~/.xorg/displayctlrc'
+alias config-wm='vim ~/.config/Wmderland/config'
+alias config-i3='vim ~/.config/i3/config'
+alias config-polybar='vim ~/.config/polybar/config'
+alias macspoof='sudo ~/.local/bin/scripts/macspoof'
+
+# typos
+alias cl='c; l'
+alias CL='c; l'
+alias cll='c; ll'
+alias CLL='c; ll'
+alias EXIT='exit'
+alias eixt='exit'
+alias xit='exit'
+alias :q='exit'
+alias :q!='exit'
+
+# shortcuts to my personal projects
+alias hack='cd ~/Code/Hacklympics/Hacklympics; ll'
+alias vgl='cd ~/Code/Vigilante/Classes; ll'
+alias wm='cd ~/Code/Wmderland; ll'
+alias os='cd ~/Code/Marcux; ll'
+alias googler='cd ~/Code/Googler; ll'
+alias web='cd /var/www/localhost/htdocs; ll'
+alias syno='cd ~/Code/Synology; ll'
+alias sb='cd ~/Code/samba/; ll'
+alias ctf='cd ~/Code/ctf-playground; ll'
