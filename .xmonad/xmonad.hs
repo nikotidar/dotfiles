@@ -1,124 +1,163 @@
-import XMonad
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.Spacing
-import XMonad.Layout.Gaps
-import XMonad.Layout.Spiral
-import XMonad.Layout.ThreeColumns
-import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.Scratchpad
-import Graphics.X11.ExtraTypes.XF86
-import Data.Default
-import Data.Monoid
-import System.IO
+{-# OPTIONS_GHC -Werror #-}
+{-# OPTIONS_GHC -fwarn-unused-imports #-}
+{-# OPTIONS_GHC -fno-warn-missing-signatures #-}
 
-import qualified XMonad.StackSet as W
-import qualified Data.Map as M
+import           Data.List
+import           XMonad
+import           XMonad.Actions.MessageFeedback
+import           XMonad.Actions.Promote
+import           XMonad.Config.Desktop
+import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.ManageDocks
+import           XMonad.Layout.BinarySpacePartition
+import           XMonad.Layout.Decoration
+import           XMonad.Layout.Gaps
+import           XMonad.Layout.Named
+import           XMonad.Layout.NoBorders
+import           XMonad.Layout.Spacing
+import           XMonad.Layout.SubLayouts
+import           XMonad.Layout.Tabbed
+import           XMonad.Layout.ThreeColumns
+import qualified XMonad.StackSet                    as W
+import           XMonad.Util.EZConfig               (additionalKeysP)
+import           XMonad.Util.Paste                  as P
+import           XMonad.Util.Run
 
-myTerminal :: [Char]
-myBorderWidth :: Dimension
-myNormalBorderColor :: [Char]
-myFocusedBorderColor :: [Char]
-myXmobarHlColor :: [Char]
-myXmobarTitleColor :: [Char]
-myFocusFollowsMouse :: Bool
-myModMask :: KeyMask
-myTerminal = "urxvt"
-myBorderWidth = 4
-myNormalBorderColor = "#4c5356"
-myFocusedBorderColor = "#607a86"
-myXmobarHlColor = "#607a86"
-myXmobarUrgentColor = "#89757e"
-myXmobarTitleColor = "#deded6"
-myFocusFollowsMouse = True
-myModMask = mod4Mask
+main = do
+  xmproc <- spawnPipe myBar
+  xmonad
+    $ addKeys myKeys
+    $ defaults xmproc
 
--- ideally i wouldn't have to do this but nixos doesn't support
--- not using a display manager so i just use the xsession
-myStartupHook :: X ()
-myStartupHook = do
-  spawn "xset +fp /home/betmen/.fonts"
-  spawn "xset fp rehash"
-  spawn "hsetroot -solid '#282936'"
-  spawn "compton --config /home/betmen/.config/compton/compton.conf"
-  spawn "wmname LG3d"
+outerGaps = 5
 
-manageScratchPad :: ManageHook
-manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
-  where
-    h = 0.1
-    w = 1
-    t = 1 - h
-    l = 1 - w
+myFont    = "xft:Iosevka:style=Regular:pixelsize=180:hinting=true"
+myBar     = "xmobar -x0 $HOME/.xmonad/xmobar.conf"
+myGaps    = gaps [(U, outerGaps), (R, outerGaps), (L, outerGaps), (D, outerGaps)]
+myLayout  = smartBorders $ threeCol
+mySpacing = spacingRaw True (Border 0 5 5 5) True (Border 5 5 5 5) True
 
-myManageHook :: ManageHook
-myManageHook =
-  manageDocks <+>
-  manageScratchPad
+base03  = "#002b36"
+base02  = "#073642"
+base01  = "#586e75"
+base00  = "#657b83"
+base0   = "#839496"
+base1   = "#93a1a1"
+base2   = "#eee8d5"
+base3   = "#fdf6e3"
+yellow  = "#f9ee98"
+orange  = "#cb4b16"
+red     = "#cf6a4c"
+magenta = "#9b859d"
+violet  = "#6c71c4"
+blue    = "#7587a6"
+cyan    = "#afc4db"
+green   = "#8f9d6a"
 
-myLogHook :: Handle -> X ()
-myLogHook xmproc =
-  dynamicLogWithPP xmobarPP {
-    ppCurrent = xmobarColor myXmobarHlColor ""
-  , ppUrgent = xmobarColor myXmobarUrgentColor ""
-  , ppHidden = xmobarColor myXmobarTitleColor "" . (\ws -> if ws == "NSP" then "" else ws)
-  , ppOutput = hPutStrLn xmproc
-  , ppSep = xmobarColor myXmobarHlColor "" " / ", ppTitle = xmobarColor myXmobarTitleColor "".shorten 50
+active       = blue
+activeWarn   = red
+inactive     = base02
+focusColor   = blue
+unfocusColor = base02
+
+topbar = 10
+
+defaults p = desktopConfig
+  { terminal           = "termite"
+  , modMask            = mod4Mask
+  , borderWidth        = 1
+  , focusedBorderColor = "#5f5a60"
+  , normalBorderColor  = "#5f5a60"
+  , manageHook         = manageDocks <+> manageHook desktopConfig
+  , layoutHook         = myLayout
+  , logHook            = myLogHook p
   }
 
-myLayout =
-  spacing 5 $
-  gaps [(U, 20)] $
-  avoidStruts $
-  tiled ||| Mirror tiled ||| three ||| spiral (6/7) ||| Full
-  where
-    tiled = ResizableTall nmaster delta ratio slaves
-    three = ThreeCol nmaster delta threeRatio
-    nmaster = 1
-    ratio = 1/2
-    delta = 3/100
-    slaves = []
-    threeRatio = 1/3
+threeCol = named "ThreeCol"
+  $ avoidStruts
+  $ myGaps
+  $ mySpacing
+  $ addTabs shrinkText myTabTheme
+  $ ThreeColMid 1 (1/20) (1/2)
 
-myHandleEventHook :: Event -> X All
-myHandleEventHook =
-  handleEventHook def
-
-scratchpad :: X ()
-scratchpad = scratchpadSpawnActionTerminal "urxvt"
-newKeys XConfig {XMonad.modMask = modMask} =
-  [ ((modMask, xK_u), scratchpad)
-  , ((modMask, xK_a), sendMessage MirrorExpand)
-  , ((modMask, xK_z), sendMessage MirrorShrink)
-  , ((modMask, xK_d), spawn "gmrun")
-  , ((modMask, xK_q), recompile True >> restart "xmonad" True)
-  , ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume 0 +5%")
-  , ((0, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume 0 -5%")
-  , ((0, xF86XK_AudioMute), spawn "pactl set-sink-volume 0 toggle")
-  , ((0, xF86XK_MonBrightnessUp), spawn "xbacklight -inc 5")
-  , ((0, xF86XK_MonBrightnessDown), spawn "xbacklight -dec 5")
-  , ((0, xK_Print), spawn "scrot")
-  , ((shiftMask, xK_Print), spawn "scrot -s")
-  , ((0, xK_End), spawn "slock")
-  ]
-myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-myKeys x = M.union (M.fromList (newKeys x)) (keys def x)
-
-main :: IO ()
-main = do
-  xmproc <- spawnPipe "/usr/bin/xmobar /home/betmen/.xmonad/xmobarrc"
-  xmonad $ def
-    { borderWidth = myBorderWidth
-    , terminal = myTerminal
-    , normalBorderColor = myNormalBorderColor
-    , focusedBorderColor = myFocusedBorderColor
-    , focusFollowsMouse = myFocusFollowsMouse
-    , manageHook = myManageHook
-    , layoutHook = myLayout
-    , logHook = myLogHook xmproc
-    , handleEventHook = myHandleEventHook
-    , startupHook = myStartupHook
-    , modMask = myModMask
-    , keys = myKeys
+topBarTheme = def
+    { inactiveBorderColor   = base03
+    , inactiveColor         = base03
+    , inactiveTextColor     = base03
+    , activeBorderColor     = active
+    , activeColor           = active
+    , activeTextColor       = active
+    , urgentBorderColor     = red
+    , urgentTextColor       = yellow
+    , decoHeight            = topbar
     }
+
+myTabTheme = def
+    { fontName              = myFont
+    , activeColor           = active
+    , inactiveColor         = base02
+    , activeBorderColor     = active
+    , inactiveBorderColor   = base02
+    , activeTextColor       = base03
+    , inactiveTextColor     = base00
+    }
+
+myKeys =
+  [ ("M-w",        spawn "firefox &")
+  , ("M-<Return>", spawn "termite")
+  , ("M-e",        spawn "emacsclient -c")
+  , ("M-d",        spawn "rofi -matching fuzzy -modi combi -show combi -combi-modi drun -show-icons -theme sidebar")
+  , ("M-g",        withFocused (sendMessage . UnMerge))
+  , ("M-S-g",      withFocused (sendMessage . MergeAll))
+  , ("M-<Tab>",    sendMessage NextLayout)
+  , ("M-b",        promote)
+  , ("M-m",        bindOn LD [("Tabs", windows W.focusDown), ("", onGroup W.focusDown')])
+  , ("M-n",        bindOn LD [("Tabs", windows W.focusUp),   ("", onGroup W.focusUp')])
+  , ("C-m",        windows W.swapDown)
+  , ("C-n",        windows W.swapUp)
+  , ("M-S-f",      fullScreen)
+  ]
+  where
+    fullScreen = sequence_
+      [ P.sendKey P.noModMask xK_F11
+      , tryMsgR (ExpandTowards L) Shrink
+      , tryMsgR (ExpandTowards R) Expand ]
+
+myLogHook h =
+  dynamicLogWithPP $ def
+    { ppOrder           = \(ws:l:t:_) -> [ws,l,t]
+    , ppCurrent         = xmobarColor red      "" . const "●"
+    , ppVisible         = xmobarColor base0    "" . const "⦿"
+    , ppUrgent          = xmobarColor magenta  "" . const "●"
+    , ppHidden          = xmobarColor base0    "" . const "●"
+    , ppHiddenNoWindows = xmobarColor base0    "" . const "○"
+    , ppTitle           = xmobarColor active   ""
+    , ppLayout          = xmobarColor yellow   ""
+    , ppSep             = "  "
+    , ppWsSep           = " "
+    , ppOutput          = hPutStrLn h
+    }
+
+-- addTopBar = noFrillsDeco shrinkText topBarTheme
+addKeys keys conf@(XConfig {XMonad.modMask = modMask}) = additionalKeysP conf keys
+tryMsgR x y = sequence_ [(tryMessageWithNoRefreshToCurrent x y), refresh]
+
+data XCond = WS | LD
+
+-- | Choose an action based on the current workspace id (WS) or
+-- layout description (LD).
+chooseAction :: XCond -> (String->X()) -> X()
+chooseAction WS f = withWindowSet (f . W.currentTag)
+chooseAction LD f = withWindowSet (f . description . W.layout . W.workspace . W.current)
+
+-- | If current workspace or layout string is listed, run the associated
+-- action (only the first match counts!) If it isn't listed, then run the default
+-- action (marked with empty string, \"\"), or do nothing if default isn't supplied.
+bindOn :: XCond -> [(String, X())] -> X()
+bindOn xc bindings =
+  chooseAction xc $ chooser where
+    chooser xc = case find ((xc==).fst) bindings of
+        Just (_, action) -> action
+        Nothing -> case find ((""==).fst) bindings of
+            Just (_, action) -> action
+            Nothing          -> return ()
