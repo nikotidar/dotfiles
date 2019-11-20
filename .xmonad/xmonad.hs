@@ -22,7 +22,7 @@ import qualified XMonad.StackSet                    as W
 import           XMonad.Util.EZConfig               (additionalKeysP)
 import           XMonad.Util.Paste                  as P
 import           XMonad.Util.Run
-
+import           System.Exit                        (exitSuccess)
 main = do
   xmproc <- spawnPipe myBar
   xmonad
@@ -116,6 +116,7 @@ myKeys =
   , ("C-m",        windows W.swapDown)
   , ("C-n",        windows W.swapUp)
   , ("M-S-f",      fullScreen)
+  , ("M-S-<ESC>",   io exitSuccess)
   ]
   where
     fullScreen = sequence_
