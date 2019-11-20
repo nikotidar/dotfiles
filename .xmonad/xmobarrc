@@ -1,50 +1,26 @@
-Config
-  { font              = "xft:Iosevka:pixelsize=14:antialias=true:hinting=true"
-  , additionalFonts   = [ "xft:NotoSans Nerd Font:pixelsize=14:antialias=true:hinting=true" ]
-  , bgColor           = "#1b1d1e"
-  , fgColor           = "#a7a7a7"
-  , alpha             = 255
-  , position         = TopSize C 100 24
-  , border           = BottomB
-  , borderColor      = "#595959"
-
--- layout
-  , sepChar          =  "%" 
-  , alignSep         = "}{"
-  , template         = " %StdinReader% } { <action=`networkmanager_dmenu`>%dynnetwork%</action>  <action=`urxvt -e htop`>%memory%</action>  <action=`setxkbmap -layout qwerty 'us, se' -option 'grp:alt_shift_toggle,caps:escape'`>%kbd%</action>  %date%"
--- general behavior
-  , lowerOnStart     = True    
-  , hideOnStart      = False   
-  , allDesktops      = True    
-  , overrideRedirect = True    
-  , pickBroadest     = False   
-  , persistent       = True    
-  , commands =
-     [ Run MPD           [ "--template", "<fn=1>\xf58f</fn> <fc=#f92672><title></fc> - <fc=#66d9ef><artist></fc> |<flags>| <fc=#A6E22E> <remaining> </fc><statei>"
-                         , "--" , "-P", "<fn=1>\xf04b</fn>"
-                         , "-Z" ,       "<fn=1>\xf04c</fn>"
-                         , "-S" ,       "<fn=1>\xf04d</fn>"
-                         ] 10
-     , Run DynNetwork    [ "--template" , "<fn=1>\xf6ff</fn> <fc=#c5c8c6>d: </fc><rx> <fc=#c5c8c6>u: </fc><tx>"
-                         , "--Low"      , "50000"       -- units: B/s
-                         , "--High"     , "1000000"       -- units: B/s    
-                         , "--low"      , "#81a2be"
-                         , "--normal"   , "#f0c674"
-                         , "--high"     , "#cc6666"
-                         ] 10
-     , Run Memory        [ "--template" ,"<fn=1>\xf85a</fn> <usedratio>%"
-                         , "--Low"      , "19"        -- units: %
-                         , "--High"     , "65"        -- units: %
-                         , "--low"      , "#f0c674"
-                         , "--normal"   , "#f0c674"
-                         , "--high"     , "#cc6666"
-                         ] 10
-     , Run Date           "<fn=1>\xf073</fn> %a<fc=#f0c674> %H:%M</fc> " "date" 10
-     , Run Kbd           [ ("se"        , "<fn=1>\xf11c</fn><fc=#81a2be> Se</fc>")
-                         , ("us"        , "<fn=1>\xf11c</fn><fc=#81a2be> Us</fc>")
-                         ]
-     , Run StdinReader   -- xmonad workspace : layout : title
-     ]
-   }
-
--- vim: ft=haskell:foldmethod=marker:expandtab:ts=4:shiftwidth=4
+Config { font = "xft:Iosevka:size=10:Regular:antialias=true"
+       , bgColor = "black"
+       , fgColor = "grey"
+       , position = TopW L 100
+       , commands = [ Run Cpu ["-L", "-1", "-H", "50", "--normal", "#e1e1e1", "--high", "#C10023"] 10
+                    , Run Memory ["-t", "Memory: <fc=#E1E1E1><usedratio></fc>%"] 10
+                    , Run Wireless "wlp3s0" [ "-t", "Wifi: <essid>" ] 10
+		    , Run Battery
+			[ "--template" , "Battery: <acstatus>"
+                        , "--Low"      , "10"        -- units: %
+                        , "--High"     , "80"        -- units: %
+                        , "--low"      , "#C10023"
+                        , "--normal"   , "#E1E1E1"
+                        , "--high"     , "#E1E1E1"
+                        , "--"
+                        , "-o", "<left>%"
+                        , "-O", "<fc=#919191>Charging</fc>"
+                        , "-i", "<fc=#E1E1E1>Charged</fc>"
+                        ] 50
+                    , Run Date "%A, %_d %b %Y // %H:%M" "date" 10
+                    , Run StdinReader
+                    ]
+       , sepChar = "%"
+       , alignSep = "}{"
+       , template = "<fc=#E1E1E1>%StdinReader%</fc> }{ <fc=#919191>%wlp3s0wi% // %cpu% // %memory% // %battery% // %date%</fc>  "
+       }
