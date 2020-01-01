@@ -16,7 +16,7 @@
 ; `set $<Variable> = <Value>` to define your own variable
 ; -----------------------------------------------------------------------
 set gap_width = 7
-set border_width = 3
+set border_width = 2
 set min_window_width = 100
 set min_window_height = 100
 set focused_color = ff4c5d70
@@ -35,11 +35,11 @@ assign ark 4
 assign Et 5
 assign Wps 5
 assign Wpp 5
-assign Spotify 6
 assign vlc 6
+assign Spotify 6
+assign Popcorn-Time 6
 assign Gimp-2.10 7
 assign tiled 7
-assign Wine,steam.exe 8
 assign Steam 8
 assign PCSX2 8
 assign PPSSPPQt 8
@@ -62,11 +62,11 @@ floating Gcolor2 true
 floating Steam true
 floating PCSX2 true
 floating Wine true
-floating Wine,steam.exe true
-floating Wine,tesv.exe true
 floating VirtualBox Machine true
 floating Vigilante true
 floating xfreerdp true
+floating steam_app_72850 true
+floating steam_app_105600 true
 floating com.hacklympics.main.Main true
 
 
@@ -74,7 +74,8 @@ floating com.hacklympics.main.Main true
 ; Applications that should be fullscreen by default
 ; -----------------------------------------------------------------------
 fullscreen Wine,maplelegendswindowed.exe true
-fullscreen Wine,tesv.exe true
+fullscreen insurgency_linux true
+fullscreen steam_app_72850 tesv_original.exe true
 
 
 ; [Prohibit Rules]
@@ -120,7 +121,7 @@ bindsym $Mod+v tile_v
 bindsym $Mod+Shift+space toggle_floating
 bindsym $Mod+f toggle_fullscreen
 bindsym $Mod+Shift+c kill
-bindsym $Mod+Shift+q exit
+bindsym $Mod+Shift+Escape exit
 bindsym $Mod+Shift+r reload
 
 bindsym XF86MonBrightnessUp exec light -A 10
@@ -132,17 +133,18 @@ bindsym XF86LaunchB exec rofi -show drun
 bindsym XF86AudioPrev exec mpc prev
 bindsym XF86AudioNext exec mpc next
 bindsym XF86AudioPlay exec mpc toggle
-bindsym XF86AudioMute exec amixer -q -D pulse set Master toggle
-bindsym XF86AudioRaiseVolume exec amixer -q -D pulse set Master 5%+ unmute
-bindsym XF86AudioLowerVolume exec amixer -q -D pulse set Master 5%- unmute
+bindsym XF86AudioMute exec amixer set Master toggle
+bindsym XF86AudioRaiseVolume exec amixer set Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec amixer set Master 5%- unmute
 bindsym XF86PowerOff exec qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout -1 -1 -1
+bindsym $Mod+Escape exec toggle_screen.sh
 
 bindsym Control+Shift+3 exec scrotutl -f
 bindsym Control+Shift+4 exec scrotutl -s
 bindsym Control+Shift+space+4 exec
 
 bindsym $Mod+d exec rofi -show drun
-bindsym $Mod+Return goto_workspace 1; exec urxvt
+bindsym $Mod+Return goto_workspace 1; exec urxvtc
 
 
 ; [Autostart]
