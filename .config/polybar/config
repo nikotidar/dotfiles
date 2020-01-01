@@ -24,10 +24,10 @@ padding = 1
 
 ; ------------------- Configuration -------------------
 [bar/default]
-monitor             = eDP1
-dpi                 = 96
+dpi                 = 116
 height              = 30
 line-size           = 2
+border-size         = 0
 padding-left        = 0
 padding-right       = 0
 module-margin-left  = 0
@@ -39,17 +39,17 @@ modules-right       = wireless-network wired-network battery volume date search 
 
 background          = ${colors.background}
 foreground          = ${colors.foreground}
-font-0              = Iosevka Orw:size=9;2
-font-1              = Sans Serif:size=7;2
-font-2              = Font Awesome 5 Brands:size=8;2
-font-3              = Font Awesome 5 Free Solid:size=8;2
-font-4              = Siji:pixelsize=10;1
-font-5              = WenQuanYi Bitmap Song:size=12;2
+font-0              = Iosevka:size=8;1
+font-1              = WenQuanYi Bitmap Song:size=12;2
+font-2              = Siji:pixelsize=10;1
+;font-3              = Font Awesome 5 Brands:size=6;2
+;font-4              = Font Awesome 5 Free Solid:size=6;2
+
 
 ; -------------------- modules -----------------------
 [module/xwindow]
 type                     = internal/xwindow
-label                    = %title:0:60:...%
+label                    = %title:0:50:...%
 
 
 [module/xworkspaces]
@@ -94,7 +94,7 @@ icon-8 = 8;
 [module/date]
 type                = internal/date
 interval            = 1
-format              = %{A1:calendar:} <label>%{A}
+format              = %{A1:calendar:} <label>%{A}
 format-padding      = ${user.padding}
 label               = %time%
 label-padding-right = 1
@@ -104,10 +104,10 @@ label-foreground    = ${colors.foreground}
 
 
 [module/volume]
-type                     = internal/pulseaudio
-format-volume            =  <label-volume>
+type                     = internal/alsa
+format-volume            =  <label-volume>
 format-volume-padding    = ${user.padding}
-format-muted             =  <label-muted>
+format-muted             =  <label-muted>
 format-muted-padding     = ${user.padding}
 label-muted              = Muted
 format-volume-foreground = ${colors.yellow}
@@ -132,7 +132,7 @@ format-charging            = <animation-charging>  <label-charging>
 format-charging-padding    = ${user.padding}
 format-discharging         = <ramp-capacity>  <label-discharging>
 format-discharging-padding = ${user.padding}
-format-full                =   <label-full>
+format-full                =  <label-full>
 format-full-padding        = ${user.padding}
 
 animation-charging-foreground = ${colors.green}
@@ -140,15 +140,15 @@ ramp-capacity-foreground      = ${colors.green}
 label-full-foreground         = ${colors.foreground}
 format-full-foreground        = ${colors.green}
 
-ramp-capacity-0            =  
+ramp-capacity-0            = 
 ramp-capacity-0-foreground = ${colors.red}
-ramp-capacity-1            =  
+ramp-capacity-1            = 
 ramp-capacity-1-foreground = ${colors.yellow}
-ramp-capacity-2            =  
-ramp-capacity-3            =  
-ramp-capacity-4            =  
+ramp-capacity-2            = 
+ramp-capacity-3            = 
+ramp-capacity-4            = 
 
-animation-charging-0       =  
+animation-charging-0       = 
 
 
 [module/wireless-network]
@@ -159,18 +159,18 @@ interval                       = 5.0
 format-connected               = <ramp-signal> <label-connected>
 format-connected-padding       = ${user.padding}
 format-connected-foreground    = ${colors.blue}
-format-disconnected            =  <label-disconnected>
+format-disconnected            =  <label-disconnected>
 format-disconnected-padding    = ${user.padding}
 format-disconnected-foreground = ${colors.blue}
 label-connected                = %essid%
 label-connected-foreground     = ${colors.foreground}
 label-disconnected             = offline
 label-disconnected-foreground  = ${colors.foreground}
-ramp-signal-0                  =  
-ramp-signal-1                  =  
-ramp-signal-2                  =  
-ramp-signal-3                  =  
-ramp-signal-4                  =  
+ramp-signal-0                  = 
+ramp-signal-1                  = 
+ramp-signal-2                  = 
+ramp-signal-3                  = 
+ramp-signal-4                  = 
 
 
 [module/wired-network]
@@ -178,10 +178,10 @@ type                           = internal/network
 accumulate-stats               = true
 interface                      = enp0s25
 interval                       = 5.0
-format-connected               =  <label-connected>
+format-connected               =  <label-connected>
 format-connected-padding       = ${user.padding}
 format-connected-foreground    = ${colors.blue}
-format-disconnected            =  <label-disconnected>
+format-disconnected            =  <label-disconnected>
 format-disconnected-padding    = ${user.padding}
 format-disconnected-foreground = ${colors.blue}
 label-connected                = %ifname%
@@ -228,7 +228,7 @@ icon-next-foreground     = ${colors.blue}
 
 [module/search]
 type               = custom/text
-content            = 
+content            = 
 content-padding    = ${user.padding}
 content-background = ${colors.dark1}
 click-left         = rofi -show drun
@@ -236,7 +236,7 @@ click-left         = rofi -show drun
 
 [module/power]
 type               = custom/text
-content            = 
+content            = 
 content-padding    = ${user.padding}
 content-background = ${colors.dark2}
 click-left         = qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout -1 -1 -1
@@ -244,9 +244,10 @@ click-left         = qdbus org.kde.ksmserver /KSMServer org.kde.KSMServerInterfa
 
 [module/wm]
 type               = custom/script
-exec               = echo "  MacBook-Pro"
+#exec               = echo " "`xprop -root _NET_WM_NAME | cut -d \" -f 2`
+exec               = echo " MacBook-Pro"
 interval           = 2147483647
-format-prefix      = 
+format-prefix      = 
 format-background  = ${colors.dark2}
 format-padding     = 2
 click-left         = select_wm
