@@ -1,0 +1,16 @@
+.window-frame {
+  box-shadow: none;
+  margin 0;
+}
+
+vte-terminal {
+      padding: 15px;
+}
+
+undershoot.top, undershoot.right, undershoot.bottom, undershoot.left {
+  background-image: none;
+}
+
+@define-color tasklist_faded_long_labels_color #ff0000;
+@define-color tasklist_faded_long_labels_color_hover #00ff00;
+@define-color tasklist_faded_long_labels_color_active #0000ff;
