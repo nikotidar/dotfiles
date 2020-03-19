@@ -12,7 +12,7 @@ green   = ${xrdb:color2}
 yellow  = ${xrdb:color3}
 
 dark1   = #262c37
-dark2   = #1f2533
+dark2   = #20252f
 
 background = ${xrdb:color0}
 foreground = ${xrdb:foreground}
@@ -26,6 +26,7 @@ padding = 1
 [bar/default]
 dpi                 = 116
 height              = 30
+bottom              = true
 line-size           = 2
 border-size         = 0
 padding-left        = 0
@@ -34,12 +35,12 @@ module-margin-left  = 0
 module-margin-right = 0
 
 modules-left        = wm xworkspaces
-modules-center      = xwindow
-modules-right       = wireless-network wired-network battery volume date search power
+modules-center			= xwindow
+modules-right       = vpn wired-network wireless-network battery volume date search power
 
 background          = ${colors.background}
 foreground          = ${colors.foreground}
-font-0              = Iosevka:size=8;1
+font-0              = Ttyp0:size=13;2
 font-1              = WenQuanYi Bitmap Song:size=12;2
 font-2              = Siji:pixelsize=10;1
 ;font-3              = Font Awesome 5 Brands:size=6;2
@@ -48,8 +49,9 @@ font-2              = Siji:pixelsize=10;1
 
 ; -------------------- modules -----------------------
 [module/xwindow]
-type                     = internal/xwindow
-label                    = %title:0:50:...%
+type          = internal/xwindow
+label         = %title:0:50:...%
+label-padding = 3
 
 
 [module/xworkspaces]
@@ -58,27 +60,27 @@ pin-workspaces = true
 enable-click   = true
 enable-scroll  = false
 
-format         = <label-state>
-format-padding = ${user.padding}
+format            = <label-state>
+format-padding    = ${user.padding}
 format-background = ${colors.dark1}
 
 ; %index%, %name% or %icon%
 label-active              = %index%
 label-active-foreground   = ${colors.foreground}
-label-active-padding      = 1
-label-active-underline    = #4c5d70
+label-active-padding      = ${user.padding}
+label-active-underline    = #4b6f76
 
 label-occupied            = %index%
 label-occupied-foreground = ${colors.red}
-label-occupied-padding    = 1
+label-occupied-padding    = ${user.padding}
 
 label-urgent              = %index%
 label-urgent-foreground   = ${colors.red}
-label-urgent-padding      = 1
+label-urgent-padding      = ${user.padding}
 
 label-empty               = %index%
 label-empty-foreground    = ${colors.grey}
-label-empty-padding       = 1
+label-empty-padding       = ${user.padding}
 
 icon-0 = 0;
 icon-1 = 1;
@@ -93,18 +95,18 @@ icon-8 = 8;
 
 [module/date]
 type                = internal/date
-interval            = 1
+interval            = ${user.padding}
 format              = %{A1:calendar:} <label>%{A}
 format-padding      = ${user.padding}
 label               = %time%
-label-padding-right = 1
+label-padding-right = ${user.padding}
 time                = "%a %H:%M"
 format-foreground   = ${colors.red}
 label-foreground    = ${colors.foreground}
 
 
 [module/volume]
-type                     = internal/alsa
+type                     = internal/pulseaudio
 format-volume            =  <label-volume>
 format-volume-padding    = ${user.padding}
 format-muted             =  <label-muted>
@@ -121,8 +123,6 @@ label-muted-foreground   = ${colors.foreground}
 [module/battery]
 type = internal/battery
 full-at = 97
-battery = BAT1
-adapter = AC
 
 label-charging    = %percentage%%
 label-discharging = %percentage%%
@@ -154,7 +154,7 @@ animation-charging-0       = 
 [module/wireless-network]
 type                           = internal/network
 accumulate-stats               = true
-interface                      = wlp3s0
+interface                      = wlp2s0
 interval                       = 5.0
 format-connected               = <ramp-signal> <label-connected>
 format-connected-padding       = ${user.padding}
@@ -176,7 +176,7 @@ ramp-signal-4                  = 
 [module/wired-network]
 type                           = internal/network
 accumulate-stats               = true
-interface                      = enp0s25
+interface                      = enp0s31f6
 interval                       = 5.0
 format-connected               =  <label-connected>
 format-connected-padding       = ${user.padding}
@@ -195,12 +195,14 @@ type                          = internal/network
 interface                     = tun0
 interval                      = 5.0
 accumulate-stats              = true
-format-connected              = VPN: <label-connected>
-format-connected-foreground   = ${colors.blue}
-format-disconnected           = <label-disconnected>
-label-connected               = Connected
+format-connected              =  <label-connected>
+format-connected-padding      = ${user.padding}
+format-connected-foreground   = ${colors.cyan}
+format-disconnected           =  <label-disconnected>
+format-disconnected-padding   = ${user.padding}
+label-connected               = enabled
 label-connected-foreground    = ${colors.foreground}
-label-disconnected            = (None)
+label-disconnected            = disabled
 label-disconnected-foreground = ${colors.foreground}
 
 
