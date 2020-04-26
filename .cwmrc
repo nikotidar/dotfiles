@@ -1,0 +1,48 @@
+# style
+ignore                  lemonbar	
+gap			            25 0 0 0
+borderwidth 		    1 
+color inactiveborder 	"#e2e2e2"
+color activeborder  	"#efefef"
+color font 	    	    "#222222"
+color menubg 		    "#efefef"
+color menufg 		    "#E6E6FA"
+fontname    		    "Noto Serif:pixelsize=13:style=Italic"
+
+# system
+unbind-key all
+bind-key 4C-r   		restart
+bind-key 4C-q 	    	quit
+bind-key 4-l 		    slock
+bind-key 4-space 	    gmrun
+bind-key 4-Return 	    kitty
+bind-key 4S-Return      menu-ssh
+
+# window controls
+bind-key 4-equal	    window-maximize
+bind-key 4-v            window-vmaximize
+bind-key 4-minus 	    window-hide	
+bind-key 4-q	window-delete
+bind-key 4-Tab	    	window-cycle
+bind-key 4S-Tab	    	window-rcycle
+bind-key 4-t	    	window-vtile
+
+# mouse controls
+
+bind-mouse 4-1 	    	window-move
+bind-mouse 4-3 		    window-resize
+
+
+# groups
+sticky yes
+
+bind-key 4-1    		group-only-1
+bind-key 4-2	    	group-only-2
+bind-key 4-3	    	group-only-3
+bind-key 4S-1	    	window-movetogroup-1
+bind-key 4S-2	    	window-movetogroup-2
+bind-key 4S-3	    	window-movetogroup-3
+bind-key 4-Left         group-rcycle
+bind-key 4-Right        group-cycle
+
+
