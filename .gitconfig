@@ -3,9 +3,9 @@
 	excludesfile = ~/.gitignore
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [user]
-	email = niko.tidar@outlook.com
+	email = me@rndtx.net
 	name = Niko Tidar Lantang Perkasa
-	signingkey = B93D90D9A70DFB80
+	signingkey = B780E12DB7F2C837
 [push]
 	default = simple
 [color]
